@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+    redis:
+        image: "redis:alpine"
+        container_name: cache
+        expose:
+            - 6379
+    
+    nginx:
+        container_name: nginx
+        build: ./nginx/
+        depends_on:
+            - redis
+            - app
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - app
+    
+    app:
+        container_name: app
+        build: ./app/
+        expose:
+            - 3000
+        links:
+            - redis
+        environment:
+            - NODE_ENV=development
+            - PORT=3000
+            - REDIS_URL=redis://cache
+        command:
+            sh -c 'npm i --registry=https://registry.npm.taobao.org && node app/main.js'
+    

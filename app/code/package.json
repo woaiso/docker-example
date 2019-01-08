@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-server",
+  "version": "1.0.0",
+  "description": "nodejs redis docker project",
+  "main": "main.js",
+  "repository": "docker.woaiso.com",
+  "author": "yunful",
+  "license": "MIT",
+  "scripts": {
+    "start": "pm2 start app/main.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "pm2": "^3.2.4",
+    "redis": "^2.8.0"
+  }
+}
